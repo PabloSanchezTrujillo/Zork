@@ -7,6 +7,12 @@ Entity::Entity(type _entityType, string _name, string _description, list<Entity*
 	contains = _contains;
 }
 
+Entity::Entity(type _entityType, string _name, string _description) {
+	entityType = _entityType;
+	name = _name;
+	description = _description;
+}
+
 Entity::~Entity() {
 }
 

@@ -23,7 +23,8 @@ private:
 	Room* destination;
 
 public:
-	Exit(type, string, string, list<Entity*>, direction, Room*, Room*);
+	Exit(type, string, string, direction, Room*, Room*);
+	~Exit();
 };
 
 #endif // !EXIT_H

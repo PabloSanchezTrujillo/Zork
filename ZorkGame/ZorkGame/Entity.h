@@ -24,6 +24,7 @@ private:
 
 public:
 	Entity(type, string, string, list<Entity*>);
+	Entity(type, string, string);
 	~Entity();
 	virtual void update();
 	string getName();

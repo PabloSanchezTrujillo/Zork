@@ -1,10 +1,2 @@
-﻿  Creature.cpp
-  Entity.cpp
-  Exit.cpp
-  Item.cpp
-  Player.cpp
-  Room.cpp
-  World.cpp
-  ZorkGame.cpp
-  Generating Code...
+﻿  ZorkGame.cpp
   ZorkGame.vcxproj -> D:\PablitoPC\Proyectos\Zork\Zork\ZorkGame\Debug\ZorkGame.exe
