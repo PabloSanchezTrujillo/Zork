@@ -9,10 +9,12 @@ using namespace std;
 class Exit : Entity {
 public:
 	enum direction {
-		North,
-		East,
-		West,
-		South
+		north,
+		south,
+		east,
+		west,
+		up,
+		down
 	};
 
 private:

@@ -24,7 +24,10 @@ private:
 
 public:
 	Entity(type, string, string, list<Entity*>);
+	~Entity();
 	virtual void update();
+	string getName();
+	string getDescription();
 };
 
 #endif // !ENTITY_H

@@ -5,9 +5,11 @@
 
 using namespace std;
 
-class Room : Entity {
+class Room : public Entity {
 public:
+	Room(type, string, string);
 	Room(type, string, string, list<Entity*>);
+	~Room();
 };
 
 #endif // !ROOM_H
