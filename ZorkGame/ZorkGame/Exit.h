@@ -2,7 +2,8 @@
 #define EXIT_H
 
 #include "Entity.h"
-#include "Room.h"
+
+class Room;
 
 using namespace std;
 
@@ -25,6 +26,8 @@ private:
 public:
 	Exit(type, string, string, direction, Room*, Room*);
 	~Exit();
+	string directionToString();
+	Room* getDestination();
 };
 
 #endif // !EXIT_H

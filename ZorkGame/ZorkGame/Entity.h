@@ -23,6 +23,7 @@ private:
 	list<Entity*> contains;
 
 public:
+	Entity();
 	Entity(type, string, string, list<Entity*>);
 	Entity(type, string, string);
 	~Entity();

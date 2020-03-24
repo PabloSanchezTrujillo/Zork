@@ -3,16 +3,20 @@
 
 #include "Entity.h"
 #include "Room.h"
+#include "Item.h"
 
 using namespace std;
 
 class Creature : public Entity {
-private:
+protected:
 	Room* location;
 
 public:
+	Creature();
 	Creature(type, string, string, list<Entity*>, Room*);
+	Creature(type, string, string, Room*);
 	~Creature();
+	Room* getLocation();
 };
 
 #endif // !CREATURE_H

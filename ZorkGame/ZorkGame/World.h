@@ -4,6 +4,7 @@
 #include<vector>
 #include "Entity.h"
 #include "Exit.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ private:
 	vector<Entity*> entities;
 	vector<Room*> houseRooms;
 	vector<Exit*> houseConnections;
+	Player* player;
 
 public:
 	World();
@@ -21,6 +23,8 @@ public:
 	void ConnectRooms();
 	Room* getRoom(int);
 	Room* findRoom(string);
+	vector<Entity*> getEntities();
+	Player* getPlayer();
 };
 
 #endif // !WORLD_H

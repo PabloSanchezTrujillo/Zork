@@ -6,6 +6,10 @@
 World::World() {
 	CreateRooms();
 	ConnectRooms();
+	list<Item*> inventory;
+	Player* _player = new Player(Entity::type::player, "Player", "The player", inventory, findRoom("Attic"));
+	entities.push_back(_player);
+	player = _player;
 }
 
 World::World(vector<Entity*> _entities) {
@@ -22,18 +26,18 @@ Room* World::getRoom(int index)
 
 void World::CreateRooms() {
 	list<Entity*> list;
-	Room* attic = new Room(Entity::type::room, "Attic", "You woke up in the attic of the house", list);
-	Room* corridorTop = new Room(Entity::type::room, "Corridor second floor", "The corridor of the second floor", list);
-	Room* bedroom = new Room(Entity::type::room, "Bedroom", "The bedroom of the house", list);
-	Room* bathroomTop = new Room(Entity::type::room, "Bathroom second floor", "The bedroom's bathroom", list);
-	Room* stairs = new Room(Entity::type::room, "Stairs", "The stairs between the first and the second floor", list);
-	Room* hall = new Room(Entity::type::room, "Hall", "The house main hall, so close to the outside!!", list);
-	Room* corridorBot = new Room(Entity::type::room, "Corridor first floor", "The corridor of the first floor", list);
-	Room* livingRoom = new Room(Entity::type::room, "Living room", "The house living room, it's nice here", list);
-	Room* kitchen = new Room(Entity::type::room, "Kitchen", "The house kitchen, a bit dirty but is ok", list);
-	Room* bathroomBot = new Room(Entity::type::room, "Bathroom first floor", "The bathroom of the first floor", list);
-	Room* basement = new Room(Entity::type::room, "Basement", "The house basement, so dark and creepy down there...", list);
-	Room* outside = new Room(Entity::type::room, "Outside", "Outside, finally I'm free!!", list);
+	Room* attic = new Room(Entity::type::room, "Attic", "You woke up in the attic of a house", list, true);
+	Room* corridorTop = new Room(Entity::type::room, "Corridor second floor", "The corridor of the second floor", list, false);
+	Room* bedroom = new Room(Entity::type::room, "Bedroom", "The bedroom of the house", list, false);
+	Room* bathroomTop = new Room(Entity::type::room, "Bathroom second floor", "The bedroom's bathroom", list, false);
+	Room* stairs = new Room(Entity::type::room, "Stairs", "The stairs between the first and the second floor", list, false);
+	Room* hall = new Room(Entity::type::room, "Hall", "The house main hall, so close to the outside!!", list, false);
+	Room* corridorBot = new Room(Entity::type::room, "Corridor first floor", "The corridor of the first floor", list, false);
+	Room* livingRoom = new Room(Entity::type::room, "Living room", "The house living room, it's nice here", list, false);
+	Room* kitchen = new Room(Entity::type::room, "Kitchen", "The house kitchen, a bit dirty but is ok", list, false);
+	Room* bathroomBot = new Room(Entity::type::room, "Bathroom first floor", "The bathroom of the first floor", list, false);
+	Room* basement = new Room(Entity::type::room, "Basement", "The house basement, so dark and creepy down there...", list, false);
+	Room* outside = new Room(Entity::type::room, "Outside", "Outside, finally I'm free!!", list, false);
 
 	houseRooms.push_back(attic);
 	houseRooms.push_back(corridorTop);
@@ -47,13 +51,17 @@ void World::CreateRooms() {
 	houseRooms.push_back(bathroomBot);
 	houseRooms.push_back(basement);
 	houseRooms.push_back(outside);
+
+	for(Room* room : houseRooms) {
+		entities.push_back(room);
+	}
 }
 
 void World::ConnectRooms() {
 	Exit* attic_corridorTop = new Exit(Entity::type::exit, "Attic-CorridorTop", "Exit from attic to corridorTop", Exit::down, findRoom("Attic"), findRoom("Corridor second floor"));
 	Exit* corridorTop_attic = new Exit(Entity::type::exit, "CorridorTop-Attic", "Exit from corridorTop to attic", Exit::up, findRoom("Corridor second floor"), findRoom("Attic"));
-	Exit* corridorTop_bedroom = new Exit(Entity::type::exit, "CorridorTop-Bedroom", "Exit from corridorTop to bedroom", Exit::east, findRoom("Bedroom"), findRoom("Corridor second floor"));
-	Exit* bedroom_corridorTop = new Exit(Entity::type::exit, "Bedroom-CorridorTop", "Exit from bedroom to corridorTop", Exit::west, findRoom("Corridor second floor"), findRoom("Bedroom"));
+	Exit* corridorTop_bedroom = new Exit(Entity::type::exit, "CorridorTop-Bedroom", "Exit from corridorTop to bedroom", Exit::east, findRoom("Corridor second floor"), findRoom("Bedroom"));
+	Exit* bedroom_corridorTop = new Exit(Entity::type::exit, "Bedroom-CorridorTop", "Exit from bedroom to corridorTop", Exit::west, findRoom("Bedroom"), findRoom("Corridor second floor"));
 	Exit* corridorTop_bathroomTop = new Exit(Entity::type::exit, "CorridorTop-BathroomTop", "Exit from corridorTop to bathroom", Exit::south, findRoom("Corridor second floor"), findRoom("Bathroom second floor"));
 	Exit* bathroomTop_corridorTop = new Exit(Entity::type::exit, "BathroomTop-CorridorTop", "Exit from bathroom to corridorTop", Exit::north, findRoom("Bathroom second floor"), findRoom("Corridor second floor"));
 	Exit* bedroom_bathroomTop = new Exit(Entity::type::exit, "Bedroom-BathroomTop", "Exit from bedroom to bathroom", Exit::south, findRoom("Bedroom"), findRoom("Bathroom second floor"));
@@ -114,4 +122,12 @@ Room* World::findRoom(string roomName) {
 	}
 
 	return nullptr;
+}
+
+vector<Entity*> World::getEntities() {
+	return entities;
+}
+
+Player* World::getPlayer() {
+	return player;
 }
