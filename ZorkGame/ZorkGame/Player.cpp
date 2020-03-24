@@ -21,21 +21,48 @@ void Player::update() {
 	cout << "Player action: " << action << endl;
 	cout << "\n";
 
-	CheckExit();
+	if(actionToPlayerAction()) {
+		//switch(playerAction);
+	}
+	else {
+		checkExit();
+	}
 }
 
-void Player::CheckExit() {
+bool Player::doAction() {
+}
+
+bool Player::checkExit() {
 	for(Exit* exit : location->getExits()) {
 		if(action == exit->directionToString()) {
 			location = exit->getDestination();
 			cout << "You are now in: " << location->getName() << ". " << location->getDescription() << endl;
 			cout << "\n";
-			return;
+			return true;
 		}
 	}
 
-	cout << "That's not a valid way!" << endl;
+	cout << "That's not a valid action!" << endl;
 	cout << "\n";
+	return false;
+}
+
+bool Player::actionToPlayerAction() {
+	if(action == "search") {
+		playerAction = playerActions::search;
+		return true;
+	}
+	else if(action == "drop") {
+		playerAction = playerActions::drop;
+		return true;
+	}
+	else if(action == "use") {
+		playerAction = playerActions::use;
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Player::isPlayerOutside() {

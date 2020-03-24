@@ -7,9 +7,17 @@
 #include<list>
 
 class Player : public Creature {
+public:
+	enum playerActions {
+		search,
+		drop,
+		use
+	};
+
 private:
 	list<Item*> inventory;
 	string action;
+	playerActions playerAction;
 	bool isOutside;
 
 public:
@@ -17,8 +25,10 @@ public:
 	Player(type, string, string, list<Item*>, Room*);
 	~Player();
 	void update();
-	void CheckExit();
+	bool doAction();
+	bool checkExit();
 	bool isPlayerOutside();
+	bool actionToPlayerAction();
 };
 
 #endif // !PLAYER_H

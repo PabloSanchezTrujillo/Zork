@@ -13,16 +13,18 @@ private:
 	vector<Entity*> entities;
 	vector<Room*> houseRooms;
 	vector<Exit*> houseConnections;
+	vector<Item*> houseItems;
 	Player* player;
 
 public:
 	World();
 	World(vector<Entity*>);
 	~World();
+	void createItems();
 	void CreateRooms();
 	void ConnectRooms();
-	Room* getRoom(int);
-	Room* findRoom(string);
+	Room* getRoom(string);
+	Item* getItem(string);
 	vector<Entity*> getEntities();
 	Player* getPlayer();
 };

@@ -3,11 +3,11 @@
 
 #include "Entity.h"
 
-class Item : Entity {
+class Item : public Entity {
 private:
 
 public:
-	Item(type, string, string, list<Entity*>);
+	Item(type, string, string);
 	~Item();
 };
 

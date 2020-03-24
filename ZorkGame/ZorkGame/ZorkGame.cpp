@@ -18,6 +18,7 @@ int main()
 		}
 	}
 
-	//cout << "Exit game" << endl;
+	cout << "You are free!!" << endl;
+	cout << "\n";
 	return 0;
 }
