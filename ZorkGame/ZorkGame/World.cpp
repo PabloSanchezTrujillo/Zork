@@ -4,10 +4,10 @@
 #include<list>
 
 World::World() {
-	CreateRooms();
-	ConnectRooms();
-	list<Item*> inventory;
-	Player* _player = new Player(Entity::type::player, "Player", "The player", inventory, getRoom("Attic"));
+	createItems();
+	createRooms();
+	connectRooms();
+	Player* _player = new Player(Entity::type::player, "Player", "The player", getRoom("Attic"));
 	entities.push_back(_player);
 	player = _player;
 }
@@ -21,10 +21,12 @@ World::~World() {
 
 void World::createItems() {
 	Item* lantern = new Item(Entity::type::item, "Lantern", "A lantern with enough batteries for some hours");
-	Item* bedroomKey = new Item(Entity::type::item, "Bedroom key", "A key that seems to open the bedroom");
-	Item* maindoorKey = new Item(Entity::type::item, "A big, old key", "What will open this key?");
+	Item* teddyBear = new Item(Entity::type::item, "Teddy_bear", "A soft teddy bear");
+	Item* bedroomKey = new Item(Entity::type::item, "Bedroom_key", "A key that seems to open the bedroom");
+	Item* maindoorKey = new Item(Entity::type::item, "Old_key", "A big, old key. What will open this key?");
 
 	houseItems.push_back(lantern);
+	houseItems.push_back(teddyBear);
 	houseItems.push_back(bedroomKey);
 	houseItems.push_back(maindoorKey);
 
@@ -33,21 +35,20 @@ void World::createItems() {
 	}
 }
 
-Item* World::getItem(string itemName) {
+Item World::getItem(string itemName) {
 	for(Item* item : houseItems) {
 		if(itemName == item->getName()) {
-			return item;
+			return *item;
 		}
 	}
-
-	return nullptr;
 }
 
-void World::CreateRooms() {
-	list<Entity*> itemsList;
+void World::createRooms() {
+	list<Entity> itemsList;
 
 	Room* attic = new Room(Entity::type::room, "Attic", "You woke up in the attic of a house", itemsList, true);
 	Room* corridorTop = new Room(Entity::type::room, "Corridor second floor", "The corridor of the second floor", itemsList, false);
+	itemsList.push_back(getItem("Teddy_bear"));
 	itemsList.push_back(getItem("Lantern"));
 	Room* bedroom = new Room(Entity::type::room, "Bedroom", "The bedroom of the house", itemsList, false);
 	itemsList.clear();
@@ -55,12 +56,12 @@ void World::CreateRooms() {
 	Room* stairs = new Room(Entity::type::room, "Stairs", "The stairs between the first and the second floor", itemsList, false);
 	Room* hall = new Room(Entity::type::room, "Hall", "The house main hall, so close to the outside!!", itemsList, false);
 	Room* corridorBot = new Room(Entity::type::room, "Corridor first floor", "The corridor of the first floor", itemsList, false);
-	itemsList.push_back(getItem("Bedroom key"));
+	itemsList.push_back(getItem("Bedroom_key"));
 	Room* livingRoom = new Room(Entity::type::room, "Living room", "The house living room, it's nice here", itemsList, false);
 	itemsList.clear();
 	Room* kitchen = new Room(Entity::type::room, "Kitchen", "The house kitchen, a bit dirty but is ok", itemsList, false);
 	Room* bathroomBot = new Room(Entity::type::room, "Bathroom first floor", "The bathroom of the first floor", itemsList, false);
-	itemsList.push_back(getItem("A big, old key"));
+	itemsList.push_back(getItem("Old_key"));
 	Room* basement = new Room(Entity::type::room, "Basement", "The house basement, so dark and creepy down there...", itemsList, false);
 	itemsList.clear();
 	Room* outside = new Room(Entity::type::room, "Outside", "Outside, finally I'm free!!", itemsList, false);
@@ -83,7 +84,7 @@ void World::CreateRooms() {
 	}
 }
 
-void World::ConnectRooms() {
+void World::connectRooms() {
 	Exit* attic_corridorTop = new Exit(Entity::type::exit, "Attic-CorridorTop", "Exit from attic to corridorTop", Exit::down, getRoom("Attic"), getRoom("Corridor second floor"));
 	Exit* corridorTop_attic = new Exit(Entity::type::exit, "CorridorTop-Attic", "Exit from corridorTop to attic", Exit::up, getRoom("Corridor second floor"), getRoom("Attic"));
 	Exit* corridorTop_bedroom = new Exit(Entity::type::exit, "CorridorTop-Bedroom", "Exit from corridorTop to bedroom", Exit::east, getRoom("Corridor second floor"), getRoom("Bedroom"));

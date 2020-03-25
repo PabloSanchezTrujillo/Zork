@@ -3,7 +3,7 @@
 Entity::Entity() {
 }
 
-Entity::Entity(type _entityType, string _name, string _description, list<Entity*> _contains) {
+Entity::Entity(type _entityType, string _name, string _description, list<Entity> _contains) {
 	entityType = _entityType;
 	name = _name;
 	description = _description;
@@ -29,4 +29,16 @@ string Entity::getName() {
 
 string Entity::getDescription() {
 	return description;
+}
+
+list<Entity> Entity::getItems() {
+	return contains;
+}
+
+void Entity::popFront() {
+	contains.pop_front();
+}
+
+void Entity::pushBack(Entity entity) {
+	contains.push_back(entity);
 }

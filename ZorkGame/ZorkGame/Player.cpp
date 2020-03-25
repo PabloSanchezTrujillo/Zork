@@ -1,35 +1,52 @@
 #include "Player.h"
 
 Player::Player() {
+	inventory = list<Entity>();
 	isOutside = false;
 }
 
-Player::Player(type _entityType, string _name, string _description, list<Item*> _inventory, Room* _location)
+Player::Player(type _entityType, string _name, string _description, list<Entity> _inventory, Room* _location)
+	: Creature(_entityType, _name, _description, _inventory, _location) {
+	isOutside = false;
+}
+
+Player::Player(type _entityType, string _name, string _description, Room* _location)
 	: Creature(_entityType, _name, _description, _location) {
-	inventory = _inventory;
+	inventory = list<Entity>();
 	isOutside = false;
 }
 
-Player::~Player()
-{
+Player::~Player() {
 }
 
 void Player::update() {
 	cout << ">";
 	cin >> action;
 	cout << "\n";
-	cout << "Player action: " << action << endl;
-	cout << "\n";
+	//cout << "Player action: " << action << endl;
+	//cout << "\n";
 
 	if(actionToPlayerAction()) {
-		//switch(playerAction);
+		switch(playerAction) {
+		case playerActions::search:
+			searchRoom();
+			break;
+
+		case playerActions::drop:
+			dropItem();
+			break;
+
+		case playerActions::use:
+			useItem();
+			break;
+
+		default:
+			cout << "Ooops this should not happen. Not a valid player action" << endl;
+		}
 	}
 	else {
 		checkExit();
 	}
-}
-
-bool Player::doAction() {
 }
 
 bool Player::checkExit() {
@@ -63,6 +80,66 @@ bool Player::actionToPlayerAction() {
 	else {
 		return false;
 	}
+}
+
+void Player::searchRoom() {
+	if(location->getItems().size() > 0) {
+		Entity item = location->getItems().front();
+		inventory.push_back(item);
+		location->popFront();
+
+		cout << "You found a: " << item.getName() << ". " << item.getDescription() << endl;
+		cout << "\n";
+	}
+	else {
+		cout << "There's nothing in the room" << endl;
+		cout << "\n";
+	}
+}
+
+void Player::dropItem() {
+	if(inventory.size() > 0) {
+		string itemName;
+
+		cout << "What item do you want to drop?" << endl;
+		cout << "[ ";
+		for(Entity item : inventory) {
+			cout << item.getName() << ", ";
+		}
+		cout << "]" << endl;
+		cout << "\n";
+		cout << ">";
+		cin >> itemName;
+		dropTheItem(itemName);
+	}
+	else {
+		cout << "You don't have anything in your inventory" << endl;
+		cout << "\n";
+	}
+}
+
+void Player::dropTheItem(string itemName) {
+	for(Entity item : inventory) {
+		if(itemName == item.getName()) {
+			cout << "\n";
+			cout << "You drop the " << item.getName() << " in the " << location->getName() << endl;
+			cout << "\n";
+
+			location->pushBack(item);
+			inventory.remove(item);
+
+			return;
+		}
+	}
+
+	cout << "\n";
+	cout << "You don't have that item in your inventory" << endl;
+	cout << "\n";
+}
+
+void Player::useItem() {
+	cout << "Use item" << endl;
+	cout << "\n";
 }
 
 bool Player::isPlayerOutside() {

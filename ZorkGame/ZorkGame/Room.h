@@ -14,7 +14,7 @@ private:
 	vector<Exit*> exits;
 
 public:
-	Room(type, string, string, list<Entity*>, bool);
+	Room(type, string, string, list<Entity>, bool);
 	~Room();
 	void update();
 	void addExit(Exit*);

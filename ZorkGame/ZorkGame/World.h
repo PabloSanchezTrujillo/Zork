@@ -21,10 +21,10 @@ public:
 	World(vector<Entity*>);
 	~World();
 	void createItems();
-	void CreateRooms();
-	void ConnectRooms();
+	void createRooms();
+	void connectRooms();
 	Room* getRoom(string);
-	Item* getItem(string);
+	Item getItem(string);
 	vector<Entity*> getEntities();
 	Player* getPlayer();
 };

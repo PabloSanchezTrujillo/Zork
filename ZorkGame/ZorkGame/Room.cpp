@@ -1,6 +1,6 @@
 #include "Room.h"
 
-Room::Room(type _entityType, string _name, string _description, list<Entity*> _contains, bool _isPlayerInside)
+Room::Room(type _entityType, string _name, string _description, list<Entity> _contains, bool _isPlayerInside)
 	: Entity(_entityType, _name, _description, _contains) {
 	isPlayerInside = _isPlayerInside;
 }

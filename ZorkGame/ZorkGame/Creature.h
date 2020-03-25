@@ -13,7 +13,7 @@ protected:
 
 public:
 	Creature();
-	Creature(type, string, string, list<Entity*>, Room*);
+	Creature(type, string, string, list<Entity>, Room*);
 	Creature(type, string, string, Room*);
 	~Creature();
 	Room* getLocation();

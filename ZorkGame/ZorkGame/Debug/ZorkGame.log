@@ -1,5 +1,3 @@
-﻿  Player.cpp
-  World.cpp
-  ZorkGame.cpp
-  Generating Code...
+﻿  World.cpp
+D:\PablitoPC\Proyectos\Zork\Zork\ZorkGame\ZorkGame\World.cpp(44): warning C4715: 'World::getItem': not all control paths return a value
   ZorkGame.vcxproj -> D:\PablitoPC\Proyectos\Zork\Zork\ZorkGame\Debug\ZorkGame.exe
