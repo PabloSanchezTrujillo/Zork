@@ -1,10 +1,25 @@
 #include "Exit.h"
 #include "Room.h"
 
-Exit::Exit(type _entityType, string _name, string _description, direction _exitDirection, Room* _source, Room* _destination) : Entity(_entityType, _name, _description) {
+Exit::Exit(type _entityType, string _name, string _description, direction _exitDirection, Room* _source, Room* _destination, bool _isLocked)
+	: Entity(_entityType, _name, _description) {
 	exitDirection = _exitDirection;
 	source = _source;
 	destination = _destination;
+	isLocked = _isLocked;
+
+	source->addExit(this);
+}
+
+Exit::Exit(type _entityType, string _name, string _description, direction _exitDirection, Room* _source, Room* _destination, bool _isLocked, Entity _itemToUnlock)
+	: Entity(_entityType, _name, _description) {
+	exitDirection = _exitDirection;
+	source = _source;
+	destination = _destination;
+	isLocked = _isLocked;
+	if(isLocked) {
+		itemToUnlock = _itemToUnlock;
+	}
 
 	source->addExit(this);
 }
@@ -39,4 +54,24 @@ string Exit::directionToString() {
 
 Room* Exit::getDestination() {
 	return destination;
+}
+
+bool Exit::isRoomLocked()
+{
+	return isLocked;
+}
+
+bool Exit::unlock(Entity itemUsed) {
+	if(isLocked) {
+		if(itemToUnlock.getName() == itemUsed.getName()) {
+			isLocked = false;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return true;
+	}
 }

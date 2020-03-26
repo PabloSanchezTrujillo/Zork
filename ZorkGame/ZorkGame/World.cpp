@@ -64,7 +64,7 @@ void World::createRooms() {
 	itemsList.push_back(getItem("Old_key"));
 	Room* basement = new Room(Entity::type::room, "Basement", "The house basement, so dark and creepy down there...", itemsList, false);
 	itemsList.clear();
-	Room* outside = new Room(Entity::type::room, "Outside", "Outside, finally I'm free!!", itemsList, false);
+	Room* outside = new Room(Entity::type::room, "Outside", "Finally you are free!!", itemsList, false);
 
 	houseRooms.push_back(attic);
 	houseRooms.push_back(corridorTop);
@@ -85,32 +85,32 @@ void World::createRooms() {
 }
 
 void World::connectRooms() {
-	Exit* attic_corridorTop = new Exit(Entity::type::exit, "Attic-CorridorTop", "Exit from attic to corridorTop", Exit::down, getRoom("Attic"), getRoom("Corridor second floor"));
-	Exit* corridorTop_attic = new Exit(Entity::type::exit, "CorridorTop-Attic", "Exit from corridorTop to attic", Exit::up, getRoom("Corridor second floor"), getRoom("Attic"));
-	Exit* corridorTop_bedroom = new Exit(Entity::type::exit, "CorridorTop-Bedroom", "Exit from corridorTop to bedroom", Exit::east, getRoom("Corridor second floor"), getRoom("Bedroom"));
-	Exit* bedroom_corridorTop = new Exit(Entity::type::exit, "Bedroom-CorridorTop", "Exit from bedroom to corridorTop", Exit::west, getRoom("Bedroom"), getRoom("Corridor second floor"));
-	Exit* corridorTop_bathroomTop = new Exit(Entity::type::exit, "CorridorTop-BathroomTop", "Exit from corridorTop to bathroom", Exit::south, getRoom("Corridor second floor"), getRoom("Bathroom second floor"));
-	Exit* bathroomTop_corridorTop = new Exit(Entity::type::exit, "BathroomTop-CorridorTop", "Exit from bathroom to corridorTop", Exit::north, getRoom("Bathroom second floor"), getRoom("Corridor second floor"));
-	Exit* bedroom_bathroomTop = new Exit(Entity::type::exit, "Bedroom-BathroomTop", "Exit from bedroom to bathroom", Exit::south, getRoom("Bedroom"), getRoom("Bathroom second floor"));
-	Exit* bathroomTop_bedroom = new Exit(Entity::type::exit, "BathroomTop-Bedroom", "Exit from bathroom to bedroom", Exit::east, getRoom("Bathroom second floor"), getRoom("Bedroom"));
-	Exit* corridorTop_stairs = new Exit(Entity::type::exit, "CorridorTop-Stairs", "Exit from corridorTop to stairs", Exit::west, getRoom("Corridor second floor"), getRoom("Stairs"));
-	Exit* stairs_corridorTop = new Exit(Entity::type::exit, "Stairs-CorridorTop", "Exit from stairs to corridorTop", Exit::up, getRoom("Stairs"), getRoom("Corridor second floor"));
-	Exit* stairs_hall = new Exit(Entity::type::exit, "Stairs-Hall", "Exit from stairs to main hall", Exit::down, getRoom("Stairs"), getRoom("Hall"));
-	Exit* hall_stairs = new Exit(Entity::type::exit, "Hall-Stairs", "Exit from main hall to stairs", Exit::east, getRoom("Hall"), getRoom("Stairs"));
-	Exit* hall_corridorBot = new Exit(Entity::type::exit, "Hall-CorridorBot", "Exit from hall to corridorBot", Exit::south, getRoom("Hall"), getRoom("Corridor first floor"));
-	Exit* corridorBot_hall = new Exit(Entity::type::exit, "CorridorBot-Hall", "Exit from corridorBot to hall", Exit::north, getRoom("Corridor first floor"), getRoom("Hall"));
-	Exit* hall_outside = new Exit(Entity::type::exit, "Hall-Outside", "Exit from hall to outside", Exit::north, getRoom("Hall"), getRoom("Outside"));
-	Exit* outside_hall = new Exit(Entity::type::exit, "Outside-Hall", "Exit from outside to hall", Exit::south, getRoom("Outside"), getRoom("Hall"));
-	Exit* hall_livingRoom = new Exit(Entity::type::exit, "Hall-LivingRoom", "Exit from hall to living room", Exit::west, getRoom("Hall"), getRoom("Living room"));
-	Exit* livingRoom_hall = new Exit(Entity::type::exit, "LivingRoom-Hall", "Exit from living room to hall", Exit::north, getRoom("Living room"), getRoom("Hall"));
-	Exit* corridorBot_livingRoom = new Exit(Entity::type::exit, "CorridorBot-LivingRoom", "Exit from corridorBot to living room", Exit::west, getRoom("Corridor first floor"), getRoom("Living room"));
-	Exit* livingRoom_corridorBot = new Exit(Entity::type::exit, "LivingRoom-CorridorBot", "Exit from living room to corridorBot", Exit::east, getRoom("Living room"), getRoom("Corridor first floor"));
-	Exit* corridorBot_bathroomBot = new Exit(Entity::type::exit, "CorridorBot-BathroomBot", "Exit from corridorBot to bathroomBot", Exit::east, getRoom("Corridor first floor"), getRoom("Bathroom first floor"));
-	Exit* bathroomBot_corridorBot = new Exit(Entity::type::exit, "BathroomBot-CorridorBot", "Exit from bathroomBot to corridorBot", Exit::west, getRoom("Bathroom first floor"), getRoom("Corridor first floor"));
-	Exit* corridorBot_kitchen = new Exit(Entity::type::exit, "CorridorBot-Kitchen", "Exit from corridorBot to kitchen", Exit::south, getRoom("Corridor first floor"), getRoom("Kitchen"));
-	Exit* kitchen_corridorBot = new Exit(Entity::type::exit, "Kitchen-CorridorBot", "Exit from kitchen to corridorBot", Exit::north, getRoom("Kitchen"), getRoom("Corridor first floor"));
-	Exit* kitchen_basement = new Exit(Entity::type::exit, "Kitchen-Basement", "Exit from kitchen to basement", Exit::down, getRoom("Kitchen"), getRoom("Basement"));
-	Exit* basement_kitchen = new Exit(Entity::type::exit, "Basement-Kitchen", "Exit from basement to kitchen", Exit::up, getRoom("Basement"), getRoom("Kitchen"));
+	Exit* attic_corridorTop = new Exit(Entity::type::exit, "Attic-CorridorTop", "Exit from attic to corridorTop", Exit::down, getRoom("Attic"), getRoom("Corridor second floor"), false);
+	Exit* corridorTop_attic = new Exit(Entity::type::exit, "CorridorTop-Attic", "Exit from corridorTop to attic", Exit::up, getRoom("Corridor second floor"), getRoom("Attic"), false);
+	Exit* corridorTop_bedroom = new Exit(Entity::type::exit, "CorridorTop-Bedroom", "Exit from corridorTop to bedroom", Exit::east, getRoom("Corridor second floor"), getRoom("Bedroom"), true, getItem("Bedroom_key"));
+	Exit* bedroom_corridorTop = new Exit(Entity::type::exit, "Bedroom-CorridorTop", "Exit from bedroom to corridorTop", Exit::west, getRoom("Bedroom"), getRoom("Corridor second floor"), false);
+	Exit* corridorTop_bathroomTop = new Exit(Entity::type::exit, "CorridorTop-BathroomTop", "Exit from corridorTop to bathroom", Exit::south, getRoom("Corridor second floor"), getRoom("Bathroom second floor"), false);
+	Exit* bathroomTop_corridorTop = new Exit(Entity::type::exit, "BathroomTop-CorridorTop", "Exit from bathroom to corridorTop", Exit::north, getRoom("Bathroom second floor"), getRoom("Corridor second floor"), false);
+	Exit* bedroom_bathroomTop = new Exit(Entity::type::exit, "Bedroom-BathroomTop", "Exit from bedroom to bathroom", Exit::south, getRoom("Bedroom"), getRoom("Bathroom second floor"), false);
+	Exit* bathroomTop_bedroom = new Exit(Entity::type::exit, "BathroomTop-Bedroom", "Exit from bathroom to bedroom", Exit::east, getRoom("Bathroom second floor"), getRoom("Bedroom"), true, getItem("Bedroom_key"));
+	Exit* corridorTop_stairs = new Exit(Entity::type::exit, "CorridorTop-Stairs", "Exit from corridorTop to stairs", Exit::west, getRoom("Corridor second floor"), getRoom("Stairs"), false);
+	Exit* stairs_corridorTop = new Exit(Entity::type::exit, "Stairs-CorridorTop", "Exit from stairs to corridorTop", Exit::up, getRoom("Stairs"), getRoom("Corridor second floor"), false);
+	Exit* stairs_hall = new Exit(Entity::type::exit, "Stairs-Hall", "Exit from stairs to main hall", Exit::down, getRoom("Stairs"), getRoom("Hall"), false);
+	Exit* hall_stairs = new Exit(Entity::type::exit, "Hall-Stairs", "Exit from main hall to stairs", Exit::east, getRoom("Hall"), getRoom("Stairs"), false);
+	Exit* hall_corridorBot = new Exit(Entity::type::exit, "Hall-CorridorBot", "Exit from hall to corridorBot", Exit::south, getRoom("Hall"), getRoom("Corridor first floor"), false);
+	Exit* corridorBot_hall = new Exit(Entity::type::exit, "CorridorBot-Hall", "Exit from corridorBot to hall", Exit::north, getRoom("Corridor first floor"), getRoom("Hall"), false);
+	Exit* hall_outside = new Exit(Entity::type::exit, "Hall-Outside", "Exit from hall to outside", Exit::north, getRoom("Hall"), getRoom("Outside"), true, getItem("Old_key"));
+	Exit* outside_hall = new Exit(Entity::type::exit, "Outside-Hall", "Exit from outside to hall", Exit::south, getRoom("Outside"), getRoom("Hall"), false);
+	Exit* hall_livingRoom = new Exit(Entity::type::exit, "Hall-LivingRoom", "Exit from hall to living room", Exit::west, getRoom("Hall"), getRoom("Living room"), false);
+	Exit* livingRoom_hall = new Exit(Entity::type::exit, "LivingRoom-Hall", "Exit from living room to hall", Exit::north, getRoom("Living room"), getRoom("Hall"), false);
+	Exit* corridorBot_livingRoom = new Exit(Entity::type::exit, "CorridorBot-LivingRoom", "Exit from corridorBot to living room", Exit::west, getRoom("Corridor first floor"), getRoom("Living room"), false);
+	Exit* livingRoom_corridorBot = new Exit(Entity::type::exit, "LivingRoom-CorridorBot", "Exit from living room to corridorBot", Exit::east, getRoom("Living room"), getRoom("Corridor first floor"), false);
+	Exit* corridorBot_bathroomBot = new Exit(Entity::type::exit, "CorridorBot-BathroomBot", "Exit from corridorBot to bathroomBot", Exit::east, getRoom("Corridor first floor"), getRoom("Bathroom first floor"), false);
+	Exit* bathroomBot_corridorBot = new Exit(Entity::type::exit, "BathroomBot-CorridorBot", "Exit from bathroomBot to corridorBot", Exit::west, getRoom("Bathroom first floor"), getRoom("Corridor first floor"), false);
+	Exit* corridorBot_kitchen = new Exit(Entity::type::exit, "CorridorBot-Kitchen", "Exit from corridorBot to kitchen", Exit::south, getRoom("Corridor first floor"), getRoom("Kitchen"), false);
+	Exit* kitchen_corridorBot = new Exit(Entity::type::exit, "Kitchen-CorridorBot", "Exit from kitchen to corridorBot", Exit::north, getRoom("Kitchen"), getRoom("Corridor first floor"), false);
+	Exit* kitchen_basement = new Exit(Entity::type::exit, "Kitchen-Basement", "Exit from kitchen to basement", Exit::down, getRoom("Kitchen"), getRoom("Basement"), true, getItem("Lantern"));
+	Exit* basement_kitchen = new Exit(Entity::type::exit, "Basement-Kitchen", "Exit from basement to kitchen", Exit::up, getRoom("Basement"), getRoom("Kitchen"), false);
 
 	houseConnections.push_back(attic_corridorTop);
 	houseConnections.push_back(corridorTop_attic);

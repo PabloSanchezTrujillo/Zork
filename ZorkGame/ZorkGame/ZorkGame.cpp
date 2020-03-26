@@ -18,7 +18,8 @@ int main()
 		}
 	}
 
-	cout << "You are free!!" << endl;
+	cout << "The end." << endl;
 	cout << "\n";
+	system("pause");
 	return 0;
 }

@@ -22,12 +22,17 @@ private:
 	direction exitDirection;
 	Room* source;
 	Room* destination;
+	bool isLocked;
+	Entity itemToUnlock;
 
 public:
-	Exit(type, string, string, direction, Room*, Room*);
+	Exit(type, string, string, direction, Room*, Room*, bool);
+	Exit(type, string, string, direction, Room*, Room*, bool, Entity);
 	~Exit();
 	string directionToString();
 	Room* getDestination();
+	bool isRoomLocked();
+	bool unlock(Entity);
 };
 
 #endif // !EXIT_H

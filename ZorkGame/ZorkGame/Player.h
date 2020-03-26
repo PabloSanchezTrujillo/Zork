@@ -35,6 +35,7 @@ public:
 	void dropItem();
 	void dropTheItem(string);
 	void useItem();
+	void showInventory();
 };
 
 #endif // !PLAYER_H

@@ -20,6 +20,11 @@ Player::~Player() {
 }
 
 void Player::update() {
+	if(location->getName() == "Outside") {
+		isOutside = true;
+		return;
+	}
+
 	cout << ">";
 	cin >> action;
 	cout << "\n";
@@ -52,10 +57,25 @@ void Player::update() {
 bool Player::checkExit() {
 	for(Exit* exit : location->getExits()) {
 		if(action == exit->directionToString()) {
-			location = exit->getDestination();
-			cout << "You are now in: " << location->getName() << ". " << location->getDescription() << endl;
-			cout << "\n";
-			return true;
+			if(!exit->isRoomLocked()) {
+				location = exit->getDestination();
+				cout << "You are now in: " << location->getName() << ". " << location->getDescription() << endl;
+				cout << "\n";
+
+				return true;
+			}
+			else if(exit->isRoomLocked() && exit->getDestination()->getName() == "Basement") {
+				cout << "No no no. I won't go down there with no lights" << endl;
+				cout << "\n";
+
+				return true;
+			}
+			else {
+				cout << "Hmmm... this door is closed" << endl;
+				cout << "\n";
+
+				return true;
+			}
 		}
 	}
 
@@ -102,12 +122,7 @@ void Player::dropItem() {
 		string itemName;
 
 		cout << "What item do you want to drop?" << endl;
-		cout << "[ ";
-		for(Entity item : inventory) {
-			cout << item.getName() << ", ";
-		}
-		cout << "]" << endl;
-		cout << "\n";
+		showInventory();
 		cout << ">";
 		cin >> itemName;
 		dropTheItem(itemName);
@@ -138,10 +153,48 @@ void Player::dropTheItem(string itemName) {
 }
 
 void Player::useItem() {
-	cout << "Use item" << endl;
-	cout << "\n";
+	if(inventory.size() > 0) {
+		string itemToUse;
+
+		cout << "What item do you want to use?" << endl;
+		showInventory();
+		cout << ">";
+		cin >> itemToUse;
+
+		for(Exit* exit : location->getExits()) {
+			if(exit->isRoomLocked()) {
+				for(Entity item : inventory) {
+					if(exit->unlock(item)) {
+						location = exit->getDestination();
+						cout << "\n";
+						cout << "You entered in the: " << location->getName() << ". " << location->getDescription() << endl;
+						cout << "\n";
+
+						return;
+					}
+				}
+			}
+		}
+
+		cout << "\n";
+		cout << "You can't seem to do anything with this object here." << endl;
+		cout << "\n";
+	}
+	else {
+		cout << "You don't have any objects to use" << endl;
+		cout << "\n";
+	}
 }
 
 bool Player::isPlayerOutside() {
 	return isOutside;
+}
+
+void Player::showInventory() {
+	cout << "[ ";
+	for(Entity item : inventory) {
+		cout << item.getName() << ", ";
+	}
+	cout << "]" << endl;
+	cout << "\n";
 }
