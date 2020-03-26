@@ -14,6 +14,7 @@ The player, also, has three diferent actions **(search, use, drop)** to find or 
 **search:** when you search a room you will find one item hided in the room. There could be more than one item per room!  
 **use:** you can use the objects you have found to open new rooms. You inventory will show so you can type the item you want to use.  
 **drop:** you can drop any object of your inventory in any room of the house, but don't worry, you can pick it up later with **search**.  
+
 *Solution to the game with the fewest movements:* down, west, down, west, search, north, east, up, use, Bedroom_key, 
 search, search, west, west, down, south, south, use, Lantern, search, up, north, north, use, Old_key.
 
@@ -21,8 +22,7 @@ search, search, west, west, down, south, south, use, Lantern, search, up, north,
 Pablo Manuel Sánchez Trujillo  
 
 ## Github repository
-[repositorio de GitHub][enlace]  
-[enlace]: https://github.com/PabloSanchezTrujillo/Zork
+https://github.com/PabloSanchezTrujillo/Zork
 
 ## License
 MIT License  
